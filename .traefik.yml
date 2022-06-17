@@ -11,6 +11,4 @@ testData:
     users:
       - traefik:$apr1$imy7rq16$PbXJYj5lsqZ71HoIBfm/T0 # traefik / traefik
   ipWhiteList:
-    sourceRange:
-      - "127.0.0.1"
-      - "10.0.0.1/32"
+    sourceRange: "10.0.0.0/32"
