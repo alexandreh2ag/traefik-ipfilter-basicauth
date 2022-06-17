@@ -1,0 +1,16 @@
+displayName: Ip filter or Basic auth
+type: middleware
+
+import: github.com/alexandreh2ag/traefik-ipfilter-basicauth
+
+summary: 'Restricts access to your services by ip whitelist or basic auth'
+
+testData:
+  basicAuth:
+    realm: "Realm"
+    users:
+      - traefik:$apr1$imy7rq16$PbXJYj5lsqZ71HoIBfm/T0 # traefik / traefik
+  ipWhiteList:
+    sourceRange:
+      - "127.0.0.1"
+      - "10.0.0.1/32"
