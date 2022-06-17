@@ -12,21 +12,21 @@ import (
 )
 
 type BasicAuth struct {
-	Users        []string `json:"users,omitempty" toml:"users,omitempty" yaml:"users,omitempty" loggable:"false"`
-	UsersFile    string   `json:"usersFile,omitempty" toml:"usersFile,omitempty" yaml:"usersFile,omitempty"`
-	Realm        string   `json:"realm,omitempty" toml:"realm,omitempty" yaml:"realm,omitempty"`
-	RemoveHeader bool     `json:"removeHeader,omitempty" toml:"removeHeader,omitempty" yaml:"removeHeader,omitempty" export:"true"`
-	HeaderField  string   `json:"headerField,omitempty" toml:"headerField,omitempty" yaml:"headerField,omitempty" export:"true"`
+	Users        []string `json:"users,omitempty"`
+	UsersFile    string   `json:"usersFile,omitempty"`
+	Realm        string   `json:"realm,omitempty"`
+	RemoveHeader bool     `json:"removeHeader,omitempty"`
+	HeaderField  string   `json:"headerField,omitempty"`
 }
 
 type IPWhiteList struct {
-	SourceRange []string `json:"sourceRange,omitempty" toml:"sourceRange,omitempty" yaml:"sourceRange,omitempty"`
+	SourceRange []string `json:"sourceRange,omitempty"`
 }
 
 // Config the plugin configuration.
 type Config struct {
-	BasicAuth   BasicAuth   `json:"basicAuth,omitempty" toml:"basicAuth,omitempty" yaml:"basicAuth,omitempty"`
-	IPWhiteList IPWhiteList `json:"ipWhiteList,omitempty" toml:"ipWhiteList,omitempty" yaml:"ipWhiteList,omitempty"`
+	BasicAuth   BasicAuth   `json:"basicAuth,omitempty"`
+	IPWhiteList IPWhiteList `json:"ipWhiteList,omitempty"`
 }
 
 // CreateConfig creates the default plugin configuration.

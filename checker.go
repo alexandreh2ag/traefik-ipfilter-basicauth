@@ -76,7 +76,6 @@ func (ip *Checker) Contains(addr string) (bool, error) {
 // ContainsIP checks if provided address is in the trusted IPs.
 func (ip *Checker) ContainsIP(addr net.IP) bool {
 	for _, authorizedIP := range ip.authorizedIPs {
-		fmt.Println("Client IP: " + addr.String() + " - ip check : " + authorizedIP.String())
 		if authorizedIP.Equal(addr) {
 			return true
 		}
