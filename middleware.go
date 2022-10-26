@@ -99,14 +99,15 @@ func (m *Middleware) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 			fmt.Println("IP is not authorize and basic auth is not valid")
 			return
 		}
-	}
-	req.URL.User = url.User(user)
-	if m.headerField != "" {
-		req.Header[m.headerField] = []string{user}
-	}
 
-	if m.removeHeader {
-		req.Header.Del(authorizationHeader)
+		req.URL.User = url.User(user)
+		if m.headerField != "" {
+			req.Header[m.headerField] = []string{user}
+		}
+
+		if m.removeHeader {
+			req.Header.Del(authorizationHeader)
+		}
 	}
 
 	fmt.Println("Request authorized")
