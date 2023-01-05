@@ -51,6 +51,11 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 		return nil, errors.New("sourceRange is empty, IPWhiteLister not created")
 	}
 
+	// workaround to bug in traefik/paerser who format []string{"A", "B"} to string("24║A║B") or string("║A║B")
+	// see: https://github.com/traefik/traefik/issues/9638
+	config.IPWhiteList.SourceRange = stringToSliceHook(config.IPWhiteList.SourceRange)
+	config.BasicAuth.Users = stringToSliceHook(config.BasicAuth.Users)
+
 	checker, err := NewChecker(config.IPWhiteList.SourceRange)
 	if err != nil {
 		return nil, fmt.Errorf("cannot parse CIDR whitelist %s: %w", config.IPWhiteList.SourceRange, err)
@@ -128,4 +133,15 @@ func basicUserParser(user string) (string, string, error) {
 		return "", "", fmt.Errorf("error parsing BasicUser: %v", user)
 	}
 	return split[0], split[1], nil
+}
+
+func stringToSliceHook(data []string) []string {
+	if strings.Contains(data[0], "║") {
+		values := strings.Split(data[0], "║")
+		if len(values) >= 2 && values[0] == "" && values[1] == "24" {
+			return values[2:]
+		}
+		return values
+	}
+	return data
 }
